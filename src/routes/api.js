@@ -9,7 +9,7 @@ const AuthVerification = require('../middlewares/AuthVerification')
 
 
 const router = express.Router();
-//Product
+//Products
 
 router.get('/ProductBrandList',ProductController.ProductBrandList);
 router.get('/ProductCategoryList',ProductController.ProductCategoryList)
