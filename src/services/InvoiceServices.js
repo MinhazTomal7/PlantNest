@@ -86,11 +86,11 @@ const CreateInvoiceService = async (req)=>{
             await InvoiceProductModel.create({
             userID:user_id,
             productID:element['productID'],
-            invoiceId:invoice_id,
+            invoiceID:invoice_id,
             qty:element['qty'],
             price:element['product']['discount']? element['product']['discountPrice']:element['product']['discount'],
-            color:element['color'],
-            size:element['size'],
+            potColor:element['potColor'],
+            plantSize:element['plantSize'],
         })
     })
 
@@ -167,7 +167,7 @@ const CreateInvoiceService = async (req)=>{
 const PaymentSuccessService = async (req)=>{
  let trxID = req.params.trxID
     await InvoiceModel.updateOne({tran_id:trxID},{payment_status:"success"})
-    return { status: "success"}
+    return { status: "success" };
 }
 
 const PaymentFailService = async (req)=>{
@@ -206,7 +206,7 @@ const InvoiceProductListService = async (req) => {
     let user_id = new ObjectID(req.headers.user_id);
     let invoice_id = new ObjectID(req.params.invoice_id);
 
-    let MatchStage = { $match: { userID: user_id, invoiceId: invoice_id } };
+    let MatchStage = { $match: { userID: user_id, invoiceID: invoice_id } };
 
     let JoinProductStage = {
         $lookup: {

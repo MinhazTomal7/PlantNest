@@ -90,7 +90,7 @@ const RemoveWishListService = async (req) =>{
         reqBody,
         {$set:reqBody},
         {upsert:true})
-    return{status:"success", message:"Wish list remove success"}
+    return{status:"success", message:"Wish list removed"}
 }
 
 module.exports ={

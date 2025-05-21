@@ -89,18 +89,18 @@ const SaveCartListService = async (req)=>{
 
 const UpdateCartListService = async (req)=>{
 
-    let user_id = req.headers.user_id;
-    let cartID = req.params.cartID;
-    let reqBody = req.body;
-    await CartModel.updateOne({_id:cartID, userID:user_id},{$set:reqBody})
-    return {status:"Success", message:"CartList Update Success"}
+
 
     try {
-
+        let user_id = req.headers.user_id;
+        let cartID = req.params.cartID;
+        let reqBody = req.body;
+        await CartModel.updateOne({_id:cartID, userID:user_id},{$set:reqBody})
+        return {status:"Success", message:"CartList Updated"}
     }
     catch (e){
 
-    }        return {status:"fail", message:"CartList Update Success"}
+    }        return {status:"fail", message:"CartList Update Failed"}
 
 }
 
@@ -111,11 +111,11 @@ const RemoveCartListService = async (req)=>{
         let reqBody = req.body;
         reqBody.userID = user_id
         await CartModel.deleteOne(reqBody)
-        return {status:"Success", message:"CartList Remove Success"}
+        return {status:"Success", message:"CartList Removed"}
     }
     catch (e){
 
-    }        return {status:"fail", message:"CartList Update Success"}
+    }        return {status:"fail", message:"CartList Remove Failed"}
 
 }
 

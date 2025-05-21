@@ -10,7 +10,7 @@ const DataSchema = mongoose.Schema({
         img7:{type:String},
         img8:{type:String},
         desAndCare:{type:String, required: true},
-            potColor:{type:String},
+            potColor:{type:String, required: true},
             plantSize:{type:String, required: true},
         productID:{type:mongoose.Schema.Types.ObjectId, required: true},
     },

@@ -8,22 +8,21 @@ exports.CreateInvoice = async (req, res)=>{
 }
 
 
-exports.PaymentFail = async (req, res)=>{
-    let result = await PaymentFailService(req);
-    return res.redirect('localhost:5050/profile')
-}
+exports.PaymentSuccess = async (req, res) => {
+    await PaymentSuccessService(req);
+    return res.redirect('http://localhost:3000/profile');
+};
 
+exports.PaymentFail = async (req, res) => {
+    await PaymentFailService(req);
+    return res.redirect('http://localhost:3000/profile');
+};
 
-exports.PaymentSuccess = async (req, res)=>{
-    let result = await PaymentSuccessService(req);
-    return res.redirect('localhost:5050/profile')
-}
+exports.PaymentCancel = async (req, res) => {
+    await PaymentCancelService(req);
+    return res.redirect('http://localhost:3000/profile');
+};
 
-
-exports.PaymentCancel = async (req, res)=>{
-    let result = await PaymentCancelService(req);
-    return res.redirect('localhost:5050/profile')
-}
 
 
 exports.PaymentIPN = async (req, res)=>{

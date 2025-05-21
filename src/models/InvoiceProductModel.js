@@ -6,7 +6,7 @@ const DataSchema = mongoose.Schema({
             invoiceID: { type: mongoose.Schema.Types.ObjectId, required: true },
             qty: { type: String, required: true },
             price: { type: String, required: true },
-            potColor: { type: String, required: false },
+            potColor: { type: String, required: true },
             plantSize: { type: String, required: true },
     },
     { timestamps: true, versionKey: false }
