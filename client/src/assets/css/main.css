@@ -167,7 +167,7 @@ body {
     font-size: var(--bodyXSmal);
 }
 .hero-bg{
-    background: url("../images/bg.png");
+    background: url("../images/demo1.png");
     background-size: cover;
     min-height: 80vh;
 }

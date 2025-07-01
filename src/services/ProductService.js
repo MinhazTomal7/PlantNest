@@ -248,14 +248,15 @@ const ListBySmilerService = async (CategoryID)=>{
 }
 
 
-const DetailsService = async (ProductID)=>{
+const DetailsService = async (ProductID) => {
     let MatchStage = { $match: { _id: new ObjectID(ProductID) } };
+
     let JoinWithBrandStage = {
         $lookup: {
             from: "brands",
             localField: "brandID",
             foreignField: "_id",
-            as: "brands",
+            as: "brand",        // use singular 'brand' to match frontend
         },
     };
 
@@ -264,7 +265,7 @@ const DetailsService = async (ProductID)=>{
             from: "categories",
             localField: "categoryID",
             foreignField: "_id",
-            as: "categories",
+            as: "category",     // singular 'category' to match frontend
         },
     };
 
@@ -277,16 +278,17 @@ const DetailsService = async (ProductID)=>{
         },
     };
 
-    let UnwindBrandStage = { $unwind: "$brands" };
-    let UnwindCategoryStage = { $unwind: "$categories" };
-    let UnwindDetailsStage = { $unwind: "$details" };
+    let UnwindBrandStage = { $unwind: { path: "$brand", preserveNullAndEmptyArrays: true } };
+    let UnwindCategoryStage = { $unwind: { path: "$category", preserveNullAndEmptyArrays: true } };
+    let UnwindDetailsStage = { $unwind: { path: "$details", preserveNullAndEmptyArrays: true } };
 
+    // Optionally, project out unwanted fields
     let ProjectionStage = {
         $project: {
-            'brands._id': 0,
-            'categories._id': 0,
             brandID: 0,
             categoryID: 0,
+            "brand._id": 0,
+            "category._id": 0,
         },
     };
 
@@ -300,8 +302,9 @@ const DetailsService = async (ProductID)=>{
         UnwindDetailsStage,
         ProjectionStage,
     ]);
-    return { status: "Success", data: data };
-}
+
+    return { status: "Success", data };
+};
 
 
 
@@ -420,16 +423,12 @@ const ListByFilterService = async (req) => {
 
         let matchConditions = {};
         if (req.body['categoryID']) {
-            matchConditions.categoryID = new ObjectId(req.body['categoryID']);
+            matchConditions.categoryID = new ObjectID(req.body['categoryID']);
         }
         if (req.body['brandID']) {
-            matchConditions.brandID = new ObjectId(req.body['brandID']);
+            matchConditions.brandID = new ObjectID(req.body['brandID']);
         }
         let MatchStage = { $match: matchConditions };
-
-
-
-
 
 
         let AddFieldsStage = {
@@ -467,7 +466,8 @@ const ListByFilterService = async (req) => {
         return {status:"success",data:data}
 
     }catch (e) {
-        return {status:"fail",data:e}.toString()
+        return { status: "fail", data: e.toString() };
+
     }
 }
 

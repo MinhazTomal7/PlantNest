@@ -87,10 +87,15 @@ exports.ProductListByRemark= async(req, res)=>{
     }
 }
 
-exports.ProductListByFilter=async(req,res)=>{
-    let result=await ListByFilterService(req);
-    return res.status(200).json(result)
-}
+exports.ProductListByFilter = async (req, res) => {
+    try {
+        let result = await ListByFilterService(req);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({ status: "Failed", data: err.toString() });
+    }
+};
+
 
 
 exports.ProductDetails= async(req, res)=>{

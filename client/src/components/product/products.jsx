@@ -42,7 +42,7 @@ const Products = () => {
 
                                                             let price=<p className="bodyMedium  text-dark my-1">Price: ৳{item['price']} </p>
                                                             if(item['discount']===true){
-                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ${item['discountPrice']} </p>
+                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ৳{item['discountPrice']} </p>
                                                             }
                                                             return(
                                                                 <div className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
@@ -77,7 +77,7 @@ const Products = () => {
 
                                                             let price=<p className="bodyMedium  text-dark my-1">Price: ${item['price']} </p>
                                                             if(item['discount']===true){
-                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ${item['price']} < /strike> ${item['discountPrice']} </p>
+                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ${item['price']} < /strike> ৳{item['discountPrice']} </p>
                                                             }
                                                             return(
                                                                 <div className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
@@ -110,7 +110,7 @@ const Products = () => {
 
                                                             let price=<p className="bodyMedium  text-dark my-1">Price: ৳{item['price']} </p>
                                                             if(item['discount']===true){
-                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ${item['discountPrice']} </p>
+                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ৳{item['discountPrice']} </p>
                                                             }
                                                             return(
                                                                 <div className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
@@ -143,7 +143,7 @@ const Products = () => {
 
                                                             let price=<p className="bodyMedium  text-dark my-1">Price: ৳{item['price']} </p>
                                                             if(item['discount']===true){
-                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ${item['discountPrice']} </p>
+                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ৳{item['discountPrice']} </p>
                                                             }
                                                             return(
                                                                 <div className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
@@ -176,7 +176,7 @@ const Products = () => {
 
                                                             let price=<p className="bodyMedium  text-dark my-1">Price: ৳{item['price']} </p>
                                                             if(item['discount']===true){
-                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ${item['discountPrice']} </p>
+                                                                price=<p className="bodyMedium  text-dark my-1">Price:<strike> ৳{item['price']} < /strike> ৳{item['discountPrice']} </p>
                                                             }
                                                             return(
                                                                 <div className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
