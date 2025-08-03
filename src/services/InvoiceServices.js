@@ -116,7 +116,7 @@ const CreateInvoiceService = async (req)=>{
     const form = new FormData();
     form.append('store_id', PaymentSettings.store_id);
     form.append('store_passwd', PaymentSettings.store_passwd);
-    form.append('total_amount', payable.toString());
+    form.append('total_amount', Number(payable).toFixed(2));
     form.append('currency', PaymentSettings.currency);
     form.append('tran_id', tran_id);
 
@@ -227,6 +227,13 @@ const InvoiceProductListService = async (req) => {
     return { status: "success", data: Products };
 };
 
+const InvoiceListAdminService = async (req) => {
+    // No userID filtering, return all invoices
+    let invoice = await InvoiceModel.find({}).sort({ createdAt: -1 });
+    return { status: "success", data: invoice };
+}
+
+
 
 module.exports = {
     CreateInvoiceService,
@@ -235,5 +242,6 @@ module.exports = {
     PaymentIPNService,
     PaymentSuccessService,
     InvoiceProductListService,
-    InvoiceListService
+    InvoiceListService,
+    InvoiceListAdminService
 }

@@ -11,9 +11,9 @@ const TermsPage = () => {
         })()
     }, []);
     return (
-        <Layout>
+
             <LegalContents/>
-        </Layout>
+
     );
 };
 

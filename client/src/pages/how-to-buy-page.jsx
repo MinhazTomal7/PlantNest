@@ -11,9 +11,9 @@ const HowToBuyPage = () => {
         })()
     }, []);
     return (
-        <Layout>
+
             <LegalContents/>
-        </Layout>
+
     );
 };
 

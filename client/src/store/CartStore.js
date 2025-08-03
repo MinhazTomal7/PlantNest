@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 import axios  from "axios";
 import {unauthorized} from "../utility/utility.js";
+import toast from "react-hot-toast";
 
 
 const CartStore=create((set)=>({
 
     isCartSubmit:false,
 
-    CartForm:{productID:"",color:"",size:""},
+    CartForm:{productID:"",potColor:"",plantSize:""},
 
     CartFormChange:(name,value)=>{
         set((state)=>({
@@ -80,17 +81,32 @@ const CartStore=create((set)=>({
 
 
 
-    CreateInvoiceRequest:async()=>{
+    CreateInvoiceRequest: async () => {
         try {
-            set({isCartSubmit:true})
-            let res=await axios.get(`/api/CreateInvoice`);
-            window.location.href=res.data['data']['GatewayPageURL'];
-        }catch (e) {
-            unauthorized(e.response.status)
-        }finally {
-            set({isCartSubmit:false})
+            set({ isCartSubmit: true });
+
+            let res = await axios.get(`/api/CreateInvoice`);
+            console.log("CreateInvoice API response:", res);
+
+            const gatewayURL = res?.data?.data?.GatewayPageURL;
+            const responseStatus = res?.data?.data?.status;
+
+            if (responseStatus === "SUCCESS" && gatewayURL) {
+                window.location.href = gatewayURL;
+            } else {
+                toast.error("Payment gateway URL not found. Please try again.");
+                console.log("Missing Gateway URL or unsuccessful response:", res.data);
+            }
+
+        } catch (e) {
+            unauthorized(e?.response?.status || 500);
+        } finally {
+            set({ isCartSubmit: false });
         }
-    },
+    }
+,
+
+
 
 
 
@@ -107,11 +123,6 @@ const CartStore=create((set)=>({
         }finally {
         }
     },
-
-
-
-
-
 
 
     InvoiceDetails:null,

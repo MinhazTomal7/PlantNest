@@ -27,10 +27,10 @@ const ProductDetails = () => {
     }, [id]);
 
     return (
-        <Layout>
+        <>
             <Details />
             <Brands />
-        </Layout>
+        </>
     );
 };
 

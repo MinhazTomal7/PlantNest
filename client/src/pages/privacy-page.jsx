@@ -11,9 +11,9 @@ const PrivacyPage = () => {
         })()
     }, []);
     return (
-        <Layout>
+
             <LegalContents/>
-        </Layout>
+
     );
 };
 

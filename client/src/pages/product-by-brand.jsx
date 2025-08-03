@@ -19,9 +19,9 @@ const ProductByBrand = () => {
 
 
     return (
-        <Layout>
+
               <ProductList/>
-        </Layout>
+
     );
 };
 

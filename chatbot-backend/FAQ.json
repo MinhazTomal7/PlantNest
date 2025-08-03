@@ -1,0 +1,497 @@
+[
+  {
+    "question": "What categories of plants do you have?",
+    "answer": "We have the following categories: Indoor Plants, Herbs & Edibles, Air Purifiers, Outdoor Plants, Flowering Plants, Succulents & Cacti, Bonsai, Fruit Plants, Planters & Pots."
+  },
+  {
+    "question": "List all plant categories.",
+    "answer": "Our plant categories are: Indoor Plants, Herbs & Edibles, Air Purifiers, Outdoor Plants, Flowering Plants, Succulents & Cacti, Bonsai, Fruit Plants, Planters & Pots."
+  },
+  {
+    "question": "Tell me about Indoor Plants category.",
+    "answer": "Indoor Plants are plants suitable for growing inside homes or offices. They help purify air and beautify indoor spaces."
+  },
+  {
+    "question": "What are Herbs & Edibles?",
+    "answer": "Herbs & Edibles include plants you can grow for cooking and consumption, such as Basil, Mint, and Chamomile."
+  },
+  {
+    "question": "What plants are in Air Purifiers category?",
+    "answer": "Air Purifiers are plants that help clean indoor air by removing toxins. Examples include Snake Plant and Peace Lily."
+  },
+  {
+    "question": "What is the Outdoor Plants category?",
+    "answer": "Outdoor Plants are plants suitable for growing outside in gardens or balconies, including trees and shrubs."
+  },
+  {
+    "question": "Tell me about Flowering Plants.",
+    "answer": "Flowering Plants produce attractive flowers and are often grown for their beauty and fragrance."
+  },
+  {
+    "question": "What are Succulents & Cacti?",
+    "answer": "Succulents & Cacti are drought-tolerant plants with thick leaves or stems that store water. They require minimal watering."
+  },
+  {
+    "question": "What is Bonsai category?",
+    "answer": "Bonsai are miniature trees grown in pots, cultivated with special care to maintain their size and shape."
+  },
+  {
+    "question": "Tell me about Fruit Plants category.",
+    "answer": "Fruit Plants are plants that bear edible fruits, such as Mango Tree and Lemon Tree."
+  },
+  {
+    "question": "What are Planters & Pots?",
+    "answer": "Planters & Pots are containers used for planting and displaying indoor and outdoor plants."
+  },
+
+  {
+    "question": "What brands do you offer?",
+    "answer": "Our brands include Brikkho Haat, Satvai Nursery, ProPlanters BD, Bonayon, The Sill, PlantVine, Garden Goods Direct, Nature Hills Nursery, Greenspaces, Indo Tropical Plant, My Garden BD, PlantsBD, Bloomscape, Leaf Envy, and Rebel Plants."
+  },
+  {
+    "question": "List all plant brands.",
+    "answer": "We offer plants from these brands: Brikkho Haat, Satvai Nursery, ProPlanters BD, Bonayon, The Sill, PlantVine, Garden Goods Direct, Nature Hills Nursery, Greenspaces, Indo Tropical Plant, My Garden BD, PlantsBD, Bloomscape, Leaf Envy, and Rebel Plants."
+  },
+  {
+    "question": "Tell me about Brikkho Haat brand.",
+    "answer": "Brikkho Haat offers a wide range of indoor and outdoor plants known for quality and healthy growth."
+  },
+  {
+    "question": "What is Satvai Nursery known for?",
+    "answer": "Satvai Nursery specializes in medicinal and herbal plants with sustainable growing practices."
+  },
+  {
+    "question": "Tell me about ProPlanters BD.",
+    "answer": "ProPlanters BD provides popular indoor plants and decorative planters."
+  },
+  {
+    "question": "What kind of plants does Bonayon offer?",
+    "answer": "Bonayon offers flowering plants and seasonal garden plants."
+  },
+  {
+    "question": "Tell me about The Sill brand.",
+    "answer": "The Sill is known for stylish indoor plants and easy-care options."
+  },
+  {
+    "question": "What does PlantVine specialize in?",
+    "answer": "PlantVine offers a selection of herbs and edibles for home gardening."
+  },
+  {
+    "question": "Tell me about Garden Goods Direct.",
+    "answer": "Garden Goods Direct provides outdoor plants and gardening supplies."
+  },
+  {
+    "question": "What kind of plants does Nature Hills Nursery sell?",
+    "answer": "Nature Hills Nursery focuses on fruit-bearing plants and trees."
+  },
+  {
+    "question": "Tell me about Greenspaces brand.",
+    "answer": "Greenspaces specializes in air purifying plants and succulents."
+  },
+  {
+    "question": "What plants are from Indo Tropical Plant?",
+    "answer": "Indo Tropical Plant offers tropical indoor plants and bonsai."
+  },
+  {
+    "question": "Tell me about My Garden BD.",
+    "answer": "My Garden BD provides a mix of indoor plants and herbs."
+  },
+  {
+    "question": "What does PlantsBD offer?",
+    "answer": "PlantsBD is known for flowering plants and decorative pots."
+  },
+  {
+    "question": "Tell me about Bloomscape.",
+    "answer": "Bloomscape offers a variety of popular houseplants and gifts."
+  },
+  {
+    "question": "What is Leaf Envy known for?",
+    "answer": "Leaf Envy specializes in unique succulents and cacti."
+  },
+  {
+    "question": "Tell me about Rebel Plants.",
+    "answer": "Rebel Plants provides hardy outdoor plants and trees."
+  },
+
+    {
+      "question": "What is Fiddle Leaf Fig?",
+      "answer": "Fiddle Leaf Fig (Ficus lyrata) is a popular indoor foliage plant with large green leaves, growing 2-6 ft tall."
+    },
+    {
+      "question": "How do I care for a Fiddle Leaf Fig?",
+      "answer": "Place in bright indirect light. Water when the top inch of soil feels dry. Avoid overwatering."
+    },
+    {
+      "question": "What kind of light does Fiddle Leaf Fig need?",
+      "answer": "Bright indirect light is ideal for Fiddle Leaf Fig."
+    },
+    {
+      "question": "How often should I water Fiddle Leaf Fig?",
+      "answer": "Water when the top inch of soil is dry, approximately once a week."
+    },
+    {
+      "question": "Is Fiddle Leaf Fig safe for pets?",
+      "answer": "No, Fiddle Leaf Fig is not pet safe."
+    },
+
+    {
+      "question": "What is Snake Plant?",
+      "answer": "Snake Plant (Sansevieria) is an air-purifying succulent with upright leaves, suitable for indoor spaces."
+    },
+    {
+      "question": "How do I care for a Snake Plant?",
+      "answer": "Snake Plants prefer low to bright indirect light and should be watered every 2–3 weeks."
+    },
+    {
+      "question": "What kind of light does Snake Plant need?",
+      "answer": "They tolerate low to bright indirect light."
+    },
+    {
+      "question": "How often should I water Snake Plant?",
+      "answer": "Water every 2 to 3 weeks; allow soil to dry between watering."
+    },
+    {
+      "question": "Is Snake Plant safe for pets?",
+      "answer": "No, Snake Plants are toxic to pets."
+    },
+
+    {
+      "question": "What is Aloe Vera?",
+      "answer": "Aloe Vera is a medicinal succulent known for its skin care properties."
+    },
+    {
+      "question": "How do I care for Aloe Vera?",
+      "answer": "Place Aloe Vera in bright indirect light and water every 2–3 weeks."
+    },
+    {
+      "question": "What kind of light does Aloe Vera need?",
+      "answer": "Bright indirect light is best."
+    },
+    {
+      "question": "How often should I water Aloe Vera?",
+      "answer": "Water every 2 to 3 weeks, letting soil dry out in between."
+    },
+    {
+      "question": "Is Aloe Vera safe for pets?",
+      "answer": "No, Aloe Vera is not pet safe."
+    },
+
+    {
+      "question": "What is Peace Lily?",
+      "answer": "Peace Lily (Spathiphyllum) is a flowering indoor plant that purifies the air."
+    },
+    {
+      "question": "How do I care for Peace Lily?",
+      "answer": "Keep in low to medium indirect light and water weekly or when leaves droop."
+    },
+    {
+      "question": "What kind of light does Peace Lily need?",
+      "answer": "Low to medium indirect light is preferred."
+    },
+    {
+      "question": "How often should I water Peace Lily?",
+      "answer": "Water weekly or whenever the plant droops."
+    },
+    {
+      "question": "Is Peace Lily safe for pets?",
+      "answer": "No, Peace Lilies are toxic to pets."
+    },
+
+    {
+      "question": "What is Rose?",
+      "answer": "Rose is a classic flowering outdoor plant known for its fragrant blooms."
+    },
+    {
+      "question": "How do I care for a Rose plant?",
+      "answer": "Plant in full sun and water twice a week. Regular pruning helps growth."
+    },
+    {
+      "question": "What kind of light does Rose need?",
+      "answer": "Roses require full sun."
+    },
+    {
+      "question": "How often should I water Roses?",
+      "answer": "Water twice a week to keep soil moist."
+    },
+    {
+      "question": "Is Rose safe for pets?",
+      "answer": "Yes, Roses are generally safe for pets."
+    },
+
+    {
+      "question": "What is Cactus?",
+      "answer": "Cactus is a low-maintenance succulent with spiky stems."
+    },
+    {
+      "question": "How do I care for Cactus?",
+      "answer": "Place in bright direct sunlight and water once every 2-3 weeks."
+    },
+    {
+      "question": "What kind of light does Cactus need?",
+      "answer": "Bright, direct sunlight is ideal."
+    },
+    {
+      "question": "How often should I water Cactus?",
+      "answer": "Water once every 2-3 weeks and let soil dry out completely."
+    },
+
+    {
+      "question": "What is Bonsai Ficus?",
+      "answer": "Bonsai Ficus is a miniature tree suitable for indoor decoration."
+    },
+    {
+      "question": "How do I care for Bonsai Ficus?",
+      "answer": "Needs moderate watering and indirect sunlight."
+    },
+    {
+      "question": "Is Bonsai Ficus pet safe?",
+      "answer": "Information about pet safety is not confirmed."
+    },
+
+    {
+      "question": "What is Mango Tree?",
+      "answer": "Mango Tree is a fruit-bearing outdoor plant."
+    },
+    {
+      "question": "How do I care for Mango Tree?",
+      "answer": "Requires full sunlight, regular watering, and well-drained soil."
+    },
+
+    {
+      "question": "What is Terracotta Planter?",
+      "answer": "A handcrafted planter pot ideal for indoor plants. It allows air flow to roots."
+    },
+
+    {
+      "question": "What is Spider Plant?",
+      "answer": "Spider Plant is an easy-to-grow air-purifying houseplant."
+    },
+    {
+      "question": "How do I care for Spider Plant?",
+      "answer": "Prefers indirect light and regular watering."
+    },
+
+    {
+      "question": "What is Basil?",
+      "answer": "Basil is a fragrant herb used in cooking."
+    },
+    {
+      "question": "How do I care for Basil?",
+      "answer": "Needs plenty of sunlight and regular watering."
+    },
+
+    {
+      "question": "What is Lavender?",
+      "answer": "Lavender is an aromatic flowering plant with purple blooms."
+    },
+    {
+      "question": "How do I care for Lavender?",
+      "answer": "Prefers full sun and well-drained soil."
+    },
+
+    {
+      "question": "What is Jade Plant?",
+      "answer": "Jade Plant is a popular succulent with thick, shiny leaves."
+    },
+    {
+      "question": "How do I care for Jade Plant?",
+      "answer": "Requires bright light and infrequent watering."
+    },
+
+    {
+      "question": "What is Cherry Tomato?",
+      "answer": "Cherry Tomato is a small, sweet fruit plant for home gardening."
+    },
+    {
+      "question": "How do I care for Cherry Tomato?",
+      "answer": "Needs full sun and regular watering."
+    },
+
+    {
+      "question": "What is Japanese Maple?",
+      "answer": "Japanese Maple is a beautiful outdoor tree with red foliage."
+    },
+    {
+      "question": "How do I care for Japanese Maple?",
+      "answer": "Thrives in partial shade."
+    },
+
+    {
+      "question": "What is Mint?",
+      "answer": "Mint is a refreshing herb for drinks and cooking."
+    },
+    {
+      "question": "How do I care for Mint?",
+      "answer": "Prefers partial shade and moist soil."
+    },
+
+    {
+      "question": "What is Lavender Planter Pot?",
+      "answer": "Decorative planter pot suitable for flowering plants like lavender."
+    },
+
+    {
+      "question": "What is Lemon Tree?",
+      "answer": "Lemon Tree is a fruit-bearing outdoor tree with fragrant blossoms."
+    },
+    {
+      "question": "How do I care for Lemon Tree?",
+      "answer": "Requires full sun and regular watering."
+    },
+
+    {
+      "question": "What is Fern?",
+      "answer": "Fern is a lush indoor plant with feathery fronds."
+    },
+    {
+      "question": "How do I care for Fern?",
+      "answer": "Thrives in indirect sunlight and humid environments."
+    },
+
+    {
+      "question": "What is ZZ Plant?",
+      "answer": "ZZ Plant is a tolerant indoor plant ideal for low light conditions."
+    },
+    {
+      "question": "How do I care for ZZ Plant?",
+      "answer": "Can survive in low light and infrequent watering."
+    },
+
+    {
+      "question": "What is Areca Palm?",
+      "answer": "Areca Palm is a lush palm perfect for bright indoor corners."
+    },
+    {
+      "question": "How do I care for Areca Palm?",
+      "answer": "Needs moderate watering and indirect light."
+    },
+
+    {
+      "question": "What is Chamomile?",
+      "answer": "Chamomile is a soothing herb used in teas and aromatherapy."
+    },
+    {
+      "question": "How do I care for Chamomile?",
+      "answer": "Prefers full sun and well-drained soil."
+    },
+
+    {
+      "question": "What is Begonia?",
+      "answer": "Begonia is a colorful flowering plant great for shady areas."
+    },
+    {
+      "question": "How do I care for Begonia?",
+      "answer": "Water when the topsoil feels dry."
+    },
+
+    {
+      "question": "What is Echeveria?",
+      "answer": "Echeveria is a stylish rosette succulent, ideal for gifts."
+    },
+    {
+      "question": "How do I care for Echeveria?",
+      "answer": "Best in sunny windowsills with minimal watering."
+    },
+
+    {
+      "question": "What is Neem Tree?",
+      "answer": "Neem Tree is a medicinal tree known for antibacterial properties."
+    },
+    {
+      "question": "How do I care for Neem Tree?",
+      "answer": "Prefers full sun and occasional pruning."
+    },
+    {
+      "question": "hello",
+      "answer": "Hello! Welcome to PlantNest. How can I assist you with plants today?"
+    },
+    {
+      "question": "hi",
+      "answer": "Hi there! I'm here to help you find and care for your plants."
+    },
+    {
+      "question": "good morning",
+      "answer": "Good morning! Ready to explore some beautiful plants today?"
+    },
+    {
+      "question": "good afternoon",
+      "answer": "Good afternoon! How can I help you with your plant needs?"
+    },
+    {
+      "question": "good evening",
+      "answer": "Good evening! Looking for plant recommendations or care tips?"
+    },
+    {
+      "question": "what categories do you have",
+      "answer": "We have these plant categories: Indoor Plants, Herbs & Edibles, Air Purifiers, Outdoor Plants, Flowering Plants, Succulents & Cacti, Bonsai, Fruit Plants, Planters & Pots."
+    },
+    {
+      "question": "list all categories",
+      "answer": "Our categories include Indoor Plants, Herbs & Edibles, Air Purifiers, Outdoor Plants, Flowering Plants, Succulents & Cacti, Bonsai, Fruit Plants, and Planters & Pots."
+    },
+    {
+      "question": "show me the categories",
+      "answer": "Sure! Here are the categories: Indoor Plants, Herbs & Edibles, Air Purifiers, Outdoor Plants, Flowering Plants, Succulents & Cacti, Bonsai, Fruit Plants, and Planters & Pots."
+    },
+    {
+      "question": "what brands do you have",
+      "answer": "Our brands include Brikkho Haat, Satvai Nursery, ProPlanters BD, Bonayon, The Sill, PlantVine, Garden Goods Direct, Nature Hills Nursery, Greenspaces, Indo Tropical Plant, My Garden BD, PlantsBD, Bloomscape, Leaf Envy, Rebel Plants."
+    },
+    {
+      "question": "list all brands",
+      "answer": "We offer plants from these brands: Brikkho Haat, Satvai Nursery, ProPlanters BD, Bonayon, The Sill, PlantVine, Garden Goods Direct, Nature Hills Nursery, Greenspaces, Indo Tropical Plant, My Garden BD, PlantsBD, Bloomscape, Leaf Envy, Rebel Plants."
+    },
+    {
+      "question": "show me the brands",
+      "answer": "Here are our brands: Brikkho Haat, Satvai Nursery, ProPlanters BD, Bonayon, The Sill, PlantVine, Garden Goods Direct, Nature Hills Nursery, Greenspaces, Indo Tropical Plant, My Garden BD, PlantsBD, Bloomscape, Leaf Envy, Rebel Plants."
+    },
+    {
+      "question": "how do i care for indoor plants",
+      "answer": "Indoor plants usually prefer indirect light and moderate watering. Avoid overwatering by letting the top inch of soil dry before watering again."
+    },
+    {
+      "question": "how do i care for succulents",
+      "answer": "Succulents need bright light and infrequent watering. Water only when the soil is completely dry."
+    },
+    {
+      "question": "how do i care for flowering plants",
+      "answer": "Flowering plants generally require bright light and regular watering, but the soil should not stay soggy."
+    },
+    {
+      "question": "how do i water my plants",
+      "answer": "Water your plants when the top inch of soil feels dry. Different plants have different water needs, so adjust accordingly."
+    },
+    {
+      "question": "what type of light do plants need",
+      "answer": "Plants may require low, medium, or bright indirect light depending on the species. Always check specific care instructions."
+    },
+    {
+      "question": "are your plants pet safe",
+      "answer": "Some plants are pet safe, while others are toxic. Please ask about a specific plant if you have pets."
+    },
+    {
+      "question": "can you recommend a plant for low light",
+      "answer": "Sure! Plants like Snake Plant, ZZ Plant, and Peace Lily do well in low light conditions."
+    },
+    {
+      "question": "can you recommend a plant for outdoors",
+      "answer": "Yes! Outdoor plants like Rose, Mango Tree, and Lemon Tree thrive well outside."
+    },
+    {
+      "question": "thank you",
+      "answer": "You're welcome! Feel free to ask if you have more questions."
+    },
+    {
+      "question": "thanks",
+      "answer": "Glad to help! Let me know if you need anything else."
+    },
+    {
+      "question": "bye",
+      "answer": "Goodbye! Happy planting and have a great day."
+    },
+    {
+      "question": "exit",
+      "answer": "Thank you for visiting PlantNest. Goodbye!"
+    }
+  ]
+

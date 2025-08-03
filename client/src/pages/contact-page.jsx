@@ -11,9 +11,9 @@ const ContactPage = () => {
         })()
     }, []);
     return (
-        <Layout>
+
             <LegalContents/>
-        </Layout>
+
     );
 };
 

@@ -16,9 +16,9 @@ const ProductByCategory = () => {
 
 
     return (
-        <Layout>
+
             <ProductList/>
-        </Layout>
+
     );
 };
 

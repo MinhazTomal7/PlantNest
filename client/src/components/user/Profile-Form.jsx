@@ -1,7 +1,7 @@
+import React, {useEffect} from 'react';
 import UserStore from "../../store/UserStore.js";
-import ProfileSkeleton from "../../skeleton/profile-skeleton.jsx";
-import React, {useEffect} from "react";
 import toast from "react-hot-toast";
+import ProfileSkeleton from "../../skeleton/profile-skeleton.jsx";
 
 const ProfileForm = () => {
 
@@ -12,16 +12,15 @@ const ProfileForm = () => {
             await ProfileDetailsRequest()
         })()
     }, []);
-    
-    
+
     const Save = async () => {
-      let res= await ProfileSaveRequest(ProfileForm);
-      if(res){
-          toast.success("Profile Updated")
-          await ProfileDetailsRequest();
-      }
+        let res= await ProfileSaveRequest(ProfileForm);
+        if(res){
+            toast.success("Profile Updated")
+            await ProfileDetailsRequest();
+        }
     }
-    
+
 
     if(ProfileDetails===null){
         return (

@@ -26,14 +26,16 @@ exports.VerifyOTP = async (req,res)=> {
 
 }
 
-exports.UserLogout = async (req,res)=> {
-    let cookieOption = {
-        expires:new Date(Date.now()-24*6060*1000),
-        httponly:false
-    }
-    res.cookie('token', cookieOption)
-    return res.status(200).json({status:"success"})
-}
+exports.UserLogout = async (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: false,      // true if using HTTPS
+        sameSite: 'lax',
+        path: '/'
+    });
+    return res.status(200).json({ status: "success" });
+};
+
 
 
 

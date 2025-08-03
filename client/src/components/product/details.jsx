@@ -47,7 +47,8 @@ const Details = () => {
             <div className="container py-4">
                 <div className="row">
                     <div className="col-md-7 p-3">
-                        <ProductImages />
+                        <ProductImages productDetails={product.details} />
+
                     </div>
                     <div className="col-md-5 p-3">
                         <h4>{product.title ?? "No title"}</h4>
@@ -68,13 +69,13 @@ const Details = () => {
 
                         <div className="row">
                             <div className="col-4 p-2">
-                                <label className="bodySmal">Size</label>
+                                <label className="bodySmal">Plant Size</label>
                                 <select
-                                    value={CartForm.size}
-                                    onChange={(e) => CartFormChange("size", e.target.value)}
+                                    value={CartForm.plantSize}
+                                    onChange={(e) => CartFormChange("plantSize", e.target.value)}
                                     className="form-control my-2 form-select"
                                 >
-                                    <option value="">Size</option>
+                                    <option value="">Plant Size</option>
                                     {product.details?.plantSize?.split(",").map((item, i) => (
                                         <option key={i} value={item.trim()}>
                                             {item.trim()}
@@ -84,13 +85,13 @@ const Details = () => {
                             </div>
 
                             <div className="col-4 p-2">
-                                <label className="bodySmal">Color</label>
+                                <label className="bodySmal">Pot Color</label>
                                 <select
-                                    value={CartForm.color}
-                                    onChange={(e) => CartFormChange("color", e.target.value)}
+                                    value={CartForm.potColor}
+                                    onChange={(e) => CartFormChange("potColor", e.target.value)}
                                     className="form-control my-2 form-select"
                                 >
-                                    <option value="">Color</option>
+                                    <option value="">Pot Color</option>
                                     {product.details?.potColor?.split(",").map((item, i) => (
                                         <option key={i} value={item.trim()}>
                                             {item.trim()}

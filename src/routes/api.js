@@ -6,6 +6,7 @@ const CartListController = require('../controllers/CartListController')
 const InvoiceController = require('../controllers/InvoiceController')
 const FeaturesController = require('../controllers/FeaturesController')
 const AuthVerification = require('../middlewares/AuthVerification')
+const AdminController = require('../controllers/AdminController');
 
 
 const router = express.Router();
@@ -64,6 +65,13 @@ router.get("/LegalDetails/:type", FeaturesController.LegalDetails)
 //Review
 router.post('/CreateReview',AuthVerification,  ProductController.CreateReview);
 
+
+//Admin
+router.get('/ProductList', ProductController.ProductList);
+router.post('/ProductCreate', ProductController.ProductCreate);
+router.delete('/ProductDelete/:id', ProductController.ProductDelete);
+router.get('/AdminInvoiceList', InvoiceController.AdminInvoiceList);
+router.get('/AdminDashboardSummary', AdminController.AdminDashboardSummary);
 
 
 module.exports = router;

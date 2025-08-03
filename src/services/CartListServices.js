@@ -79,7 +79,8 @@ const SaveCartListService = async (req)=>{
         let reqBody = req.body;
         reqBody.userID = user_id
         await CartModel.create(reqBody)
-        return {status:"Success", message:"CartList Create Success"}
+        return {status: "success", message: "CartList Create Success"};
+
     }
     catch (e){
         return {status:"fail", message:"Something Went Wrong"}
@@ -96,7 +97,7 @@ const UpdateCartListService = async (req)=>{
         let cartID = req.params.cartID;
         let reqBody = req.body;
         await CartModel.updateOne({_id:cartID, userID:user_id},{$set:reqBody})
-        return {status:"Success", message:"CartList Updated"}
+        return {status:"success", message:"CartList Updated"}
     }
     catch (e){
 
@@ -111,7 +112,8 @@ const RemoveCartListService = async (req)=>{
         let reqBody = req.body;
         reqBody.userID = user_id
         await CartModel.deleteOne(reqBody)
-        return {status:"Success", message:"CartList Removed"}
+        return {status:"success", message:"CartList Removed"}
+
     }
     catch (e){
 

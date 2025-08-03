@@ -1,6 +1,6 @@
 const {CreateInvoiceService, PaymentFailService, PaymentSuccessService
 , InvoiceListService, InvoiceProductListService, PaymentCancelService
-, PaymentIPNService} = require("../services/InvoiceServices")
+, PaymentIPNService, InvoiceListAdminService} = require("../services/InvoiceServices")
 
 exports.CreateInvoice = async (req, res)=>{
     let result = await CreateInvoiceService(req);
@@ -8,20 +8,22 @@ exports.CreateInvoice = async (req, res)=>{
 }
 
 
-exports.PaymentSuccess = async (req, res) => {
-    await PaymentSuccessService(req);
-    return res.redirect('http://localhost:3000/profile');
-};
+exports.PaymentSuccess=async (req, res) => {
+    let result=await PaymentSuccessService(req);
+    return res.redirect('http://localhost:5173/orders');
+}
 
-exports.PaymentFail = async (req, res) => {
-    await PaymentFailService(req);
-    return res.redirect('http://localhost:3000/profile');
-};
+exports.PaymentFail=async (req, res) => {
+    let result=await PaymentFailService(req);
+    return res.redirect('http://localhost:5173/orders');
+}
 
-exports.PaymentCancel = async (req, res) => {
-    await PaymentCancelService(req);
-    return res.redirect('http://localhost:3000/profile');
-};
+
+exports.PaymentCancel=async (req, res) => {
+    let result=await PaymentCancelService(req);
+    return res.redirect('http://localhost:5173/orders');
+}
+
 
 
 
@@ -39,4 +41,8 @@ exports.InvoiceList = async (req, res)=>{
 exports.InvoiceProductList= async (req, res)=>{
     let result = await InvoiceProductListService(req);
     return res.status(200).json(result)
+}
+exports.AdminInvoiceList = async (req, res) => {
+    let result = await InvoiceListAdminService(req);
+    return res.status(200).json(result);
 }

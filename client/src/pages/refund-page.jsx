@@ -11,9 +11,9 @@ const RefundPage = () => {
         })()
     }, []);
     return (
-        <Layout>
+
             <LegalContents/>
-        </Layout>
+
     );
 };
 

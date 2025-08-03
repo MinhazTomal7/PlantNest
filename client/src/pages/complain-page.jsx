@@ -12,9 +12,7 @@ const ComplainPage = () => {
         })()
     }, []);
     return (
-        <Layout>
             <LegalContents/>
-        </Layout>
     );
 };
 

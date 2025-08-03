@@ -16,9 +16,9 @@ const ProductByKeyword = () => {
 
 
     return (
-        <Layout>
+
             <ProductList/>
-        </Layout>
+
     );
 };
 

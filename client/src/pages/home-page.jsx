@@ -1,6 +1,4 @@
-import React, {useEffect} from 'react';
-import Layout from "../components/layout/layout.jsx";
-
+import React, { useEffect } from 'react';
 import Brands from "../components/product/brands.jsx";
 import ProductStore from "../store/ProductStore.js";
 import FeatureStore from "../store/FeatureStore.js";
@@ -11,30 +9,28 @@ import Products from "../components/product/products.jsx";
 
 const HomePage = () => {
 
-    const {BrandListRequest,CategoryListRequest,SliderListRequest,ListByRemarkRequest}=ProductStore();
-    const {FeatureListRequest}=FeatureStore();
+    const { BrandListRequest, CategoryListRequest, SliderListRequest, ListByRemarkRequest } = ProductStore();
+    const { FeatureListRequest } = FeatureStore();
 
     useEffect(() => {
-        (async ()=>{
+        (async () => {
             await SliderListRequest();
             await FeatureListRequest();
             await CategoryListRequest();
             await ListByRemarkRequest("new");
-            await BrandListRequest()
-        })()
+            await BrandListRequest();
+        })();
     }, []);
 
-
     return (
-        <Layout>
-            <Slider/>
-            <Features/>
-            <Categories/>
-            <Products/>
-            <Brands/>
-        </Layout>
+        <>
+            <Slider />
+            <Features />
+            <Categories />
+            <Products />
+            <Brands />
+        </>
     );
 };
-
 
 export default HomePage;
