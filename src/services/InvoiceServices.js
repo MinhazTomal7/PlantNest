@@ -9,13 +9,42 @@ const axios = require("axios")
 const {from} = require("form-data");
 const WishModel = require("../models/WishModel");
 
-const CreateInvoiceService = async (req)=>{
+// Depreciation calculation function
+const calculateDepreciatedPrice = (basePrice, createdAt, ratePerMonth = 0.02) => {
+    const createdDate = new Date(createdAt);
+    const now = new Date();
 
-    //Calculate total amount, payable & vat
-    let user_id = new ObjectID(req.headers.user_id)
-    let cus_email = req.headers.email
+    // Calculate difference in days
+    const diffTime = now - createdDate; // milliseconds
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
-    let MatchStage = {$match:{userID:user_id}}
+    // Convert monthly rate to daily rate (compound)
+    const dailyRate = 1 - Math.pow(1 - ratePerMonth, 1 / 30);
+
+    // Calculate depreciated price with daily compounding
+    const depreciatedPrice = basePrice * Math.pow(1 - dailyRate, diffDays);
+
+    return Math.max(Math.ceil(depreciatedPrice), 1);
+};
+
+
+const CreateInvoiceService = async (req) => {
+    const sizePriceMap = {
+        Small: 0,
+        Medium: 50,
+        Large: 100,
+    };
+
+    const potColorPriceMap = {
+        Default: 0,
+        White: 30,
+        Metallic: 60,
+    };
+
+    let user_id = new ObjectID(req.headers.user_id);
+    let cus_email = req.headers.email;
+
+    let MatchStage = { $match: { userID: user_id } };
 
     let JoinProductStage = {
         $lookup: {
@@ -32,75 +61,99 @@ const CreateInvoiceService = async (req)=>{
         MatchStage,
         JoinProductStage,
         UnwindStage
-    ])
+    ]);
 
- let totalAmount = 0;
-    CartProducts.forEach((element)=>{
-        let price;
-        if(element['product']['discount']){
-            price = parseFloat(element['product']['discountPrice'])
+    let totalAmount = 0;
+
+    CartProducts.forEach((element) => {
+        let basePrice;
+        if (element['product']['discount']) {
+            basePrice = parseFloat(element['product']['discountPrice']);
+        } else {
+            basePrice = parseFloat(element['product']['price']);
         }
-        else {
-            price = parseFloat(element['product']['discount'])
+
+        // Apply depreciation on base price
+        const depreciatedBasePrice = calculateDepreciatedPrice(basePrice, element['product']['createdAt']);
+
+        let extraPrice = 0;
+        if (element['plantSize']) {
+            extraPrice += sizePriceMap[element['plantSize']] || 0;
+        }
+        if (element['potColor']) {
+            extraPrice += potColorPriceMap[element['potColor']] || 0;
         }
 
-        totalAmount+= parseFloat(element['qty']*price)
-    })
+        const finalPrice = depreciatedBasePrice + extraPrice;
 
-    let vat = totalAmount * 0.05
-    let payable = totalAmount +vat
+        totalAmount += parseInt(element['qty']) * finalPrice;
+    });
 
-// Customer details and shipping details
+    let vat = Math.ceil(totalAmount * 0.05);
+    let payable = Math.ceil(totalAmount + vat);
 
-    let Profile = await ProfileModel.aggregate([MatchStage])
-    let cus_details = `Name:${Profile[0]['cus_name']}, Email:${cus_email}, Address:${Profile[0]['cus_add']}, Phone:${Profile[0]['cus_phone']} `
-    let ship_details = `Name:${Profile[0]['ship_name']}, City:${Profile[0]['ship_city']}, Address:${Profile[0]['ship_add']}, Phone:${Profile[0]['ship_phone']} `
+    let Profile = await ProfileModel.aggregate([MatchStage]);
+    let cus_details = `Name:${Profile[0]['cus_name']}, Email:${cus_email}, Address:${Profile[0]['cus_add']}, Phone:${Profile[0]['cus_phone']}`;
+    let ship_details = `Name:${Profile[0]['ship_name']}, City:${Profile[0]['ship_city']}, Address:${Profile[0]['ship_add']}, Phone:${Profile[0]['ship_phone']}`;
 
-    let tran_id = Math.floor(10000000+Math.random()*90000000);
-    let val_id = 0
-    let delivery_status = "pending"
-    let payment_status = "pending"
+    let tran_id = Math.floor(10000000 + Math.random() * 90000000);
+    let val_id = 0;
+    let delivery_status = "pending";
+    let payment_status = "pending";
 
-
-    //Create Invoice
-
+    // Create Invoice
     let createInvoice = await InvoiceModel.create({
+        userID: user_id,
+        payable: payable,
+        cus_details: cus_details,
+        ship_details: ship_details,
+        tran_id: tran_id,
+        val_id: val_id,
+        delivery_status: delivery_status,
+        payment_status: payment_status,
+        total: totalAmount,
+        vat: vat,
+    });
 
-        userID:user_id,
-        payable:payable,
-        cus_details:cus_details,
-        ship_details:ship_details,
-        tran_id:tran_id,
-        val_id:val_id,
-        delivery_status:delivery_status,
-        payment_status:payment_status,
-        total:totalAmount,
-        vat:vat,
+    let invoice_id = createInvoice['_id'];
 
-    })
+    // Save invoice products with correct price including depreciation and extras
+    for (const element of CartProducts) {
+        let basePrice;
+        if (element['product']['discount']) {
+            basePrice = parseFloat(element['product']['discountPrice']);
+        } else {
+            basePrice = parseFloat(element['product']['price']);
+        }
 
-    // Create invoice product
+        // Apply depreciation
+        const depreciatedBasePrice = calculateDepreciatedPrice(basePrice, element['product']['createdAt']);
 
-    let invoice_id = createInvoice['_id']
-    CartProducts.forEach(async (element)=>{
-            await InvoiceProductModel.create({
-            userID:user_id,
-            productID:element['productID'],
-            invoiceID:invoice_id,
-            qty:element['qty'],
-            price:element['product']['discount']? element['product']['discountPrice']:element['product']['discount'],
-            potColor:element['potColor'],
-            plantSize:element['plantSize'],
-        })
-    })
+        let extraPrice = 0;
+        if (element['plantSize']) {
+            extraPrice += sizePriceMap[element['plantSize']] || 0;
+        }
+        if (element['potColor']) {
+            extraPrice += potColorPriceMap[element['potColor']] || 0;
+        }
 
-    //Remove Cart
+        const finalPrice = depreciatedBasePrice + extraPrice;
 
-    await CartModel.deleteMany({userID:user_id})
+        await InvoiceProductModel.create({
+            userID: user_id,
+            productID: element['productID'],
+            invoiceID: invoice_id,
+            qty: element['qty'],
+            price: finalPrice.toString(),
+            potColor: element['potColor'] || "",
+            plantSize: element['plantSize'] || "",
+        });
+    }
 
-    //SSL Commerz
+    // Remove cart items after invoice creation
+    await CartModel.deleteMany({ userID: user_id });
 
-
+    // SSL Commerz Payment Setup
     let PaymentSettings = {
         store_id: process.env.STORE_ID,
         store_passwd: process.env.STORE_PASSWD,
@@ -112,7 +165,6 @@ const CreateInvoiceService = async (req)=>{
         init_url: process.env.INIT_URL
     };
 
-// Create a new FormData object
     const form = new FormData();
     form.append('store_id', PaymentSettings.store_id);
     form.append('store_passwd', PaymentSettings.store_passwd);
@@ -149,19 +201,16 @@ const CreateInvoiceService = async (req)=>{
     form.append('product_category', 'General');
     form.append('product_profile', 'E-commerce');
 
-
     const SSLRes = await axios.post(PaymentSettings.init_url, form, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
     });
 
-
     return { status: "success", data: SSLRes.data };
+};
 
 
-
-}
 
 
 const PaymentSuccessService = async (req)=>{

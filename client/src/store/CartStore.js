@@ -8,7 +8,12 @@ const CartStore=create((set)=>({
 
     isCartSubmit:false,
 
-    CartForm:{productID:"",potColor:"",plantSize:""},
+    CartForm: {
+        productID: "",
+        potColor: "",
+        plantSize: ""
+    },
+
 
     CartFormChange:(name,value)=>{
         set((state)=>({
@@ -41,32 +46,72 @@ const CartStore=create((set)=>({
     CartVatTotal:0,
     CartPayableTotal:0,
 
-    CartListRequest:async()=>{
+    CartListRequest: async () => {
         try {
-            let res=await axios.get(`/api/CartList`);
-            set({CartList:res.data['data']})
-            set({CartCount:(res.data['data']).length})
-            let total=0
-            let vat=0
-            let payable=0
-            res.data['data'].forEach((item,i)=>{
-                if(item['product']['discount']===true){
-                    total=total+parseInt(item['qty'])*parseInt(item['product']['discountPrice'])
-                }else{
-                    total=total+parseInt(item['qty'])*parseInt(item['product']['price'])
-                }
-            })
+            let res = await axios.get(`/api/CartList`);
+            set({ CartList: res.data['data'] });
+            set({ CartCount: (res.data['data']).length });
 
-            vat=total*0.05
-            payable=vat+total
-            set({CartTotal:total})
-            set({CartVatTotal:vat})
-            set({CartPayableTotal:payable})
+            const sizePriceMap = {
+                Small: 0,
+                Medium: 50,
+                Large: 100,
+            };
 
-        }catch (e) {
-            unauthorized(e.response.status)
+            const potColorPriceMap = {
+                Default: 0,
+                White: 30,
+                Metallic: 60,
+            };
+
+            const ratePerMonth = 0.02; // 2% monthly depreciation
+
+            let total = 0;
+
+            res.data['data'].forEach(item => {
+                const createdAt = new Date(item.product.createdAt);
+                const now = new Date();
+
+                // Calculate difference in days
+                const diffTime = now - createdAt; // milliseconds
+                const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+                // Convert monthly rate to daily compound rate
+                const dailyRate = 1 - Math.pow(1 - ratePerMonth, 1 / 30);
+
+                const originalBasePrice = item.product.discount
+                    ? Number(item.product.discountPrice)
+                    : Number(item.product.price);
+
+                // Calculate depreciated price using daily compound formula
+                const depreciatedPrice = Math.max(
+                    Math.ceil(originalBasePrice * Math.pow(1 - dailyRate, diffDays)),
+                    1
+                );
+
+
+                const extraSize = sizePriceMap[item.plantSize] || 0;
+                const extraColor = potColorPriceMap[item.potColor] || 0;
+
+                const finalPrice = depreciatedPrice + extraSize + extraColor;
+
+                total += parseInt(item.qty) * finalPrice;
+            });
+
+            const vat = Math.ceil(total * 0.05);
+            const payable = total + vat;
+
+            set({ CartTotal: total });
+            set({ CartVatTotal: vat });
+            set({ CartPayableTotal: payable });
+
+        } catch (e) {
+            unauthorized(e.response.status);
         }
     },
+
+
+
 
 
     RemoveCartListRequest:async(cartID)=>{
