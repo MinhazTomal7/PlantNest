@@ -177,58 +177,64 @@ exports.ProductList = async (req, res) => {
     }
 };
 
-
 exports.ProductCreate = async (req, res) => {
     try {
         const {
-            title, shortDes, price, discount, discountPrice, stock, star, remark, img,
-            categoryID, brandID,
-            img1, img2, img3, img4, img5, img6, img7, img8,
+            title, shortDes, price, discount, discountPrice,
+            stock, star, remark, categoryID, brandID,
             potColor, plantSize, desAndCare
         } = req.body;
 
-        // Validate categoryID and brandID as valid ObjectId
-        if (!mongoose.Types.ObjectId.isValid(categoryID)) {
-            return res.status(400).json({ status: "fail", message: "Invalid categoryID" });
-        }
-        if (!mongoose.Types.ObjectId.isValid(brandID)) {
-            return res.status(400).json({ status: "fail", message: "Invalid brandID" });
-        }
+        // Main image
+        const img = req.files?.img ? `/uploads/${req.files.img[0].filename}` : "";
 
-        // 1. Create base product
+        // Create base product
         const newProduct = await ProductModel.create({
-            title, shortDes, price, discount, discountPrice, stock, star, remark, img,
-            categoryID, brandID
+            title,
+            shortDes,
+            price,
+            discount: discount === "true" || discount === true || false,
+            discountPrice: discountPrice || 0,
+            stock: stock === "true" || stock === true,
+            star: Number(star) || 0,
+            remark: remark || "",
+            img,
+            categoryID,
+            brandID,
         });
 
-        // 2. Prepare product details fields safely:
         const productID = newProduct._id;
 
-        // Convert potColor and plantSize to comma separated strings if they are arrays
-        const potColorStr = Array.isArray(potColor) ? potColor.join(",") : (potColor || "");
-        const plantSizeStr = Array.isArray(plantSize) ? plantSize.join(",") : (plantSize || "");
-
-        await ProductDetailModel.create({
+        // Save product details
+        const details = await ProductDetailModel.create({
             productID,
-            img1: img1 || "",
-            img2: img2 || "",
-            img3: img3 || "",
-            img4: img4 || "",
-            img5: img5 || "",
-            img6: img6 || "",
-            img7: img7 || "",
-            img8: img8 || "",
-            potColor: potColorStr,
-            plantSize: plantSizeStr,
+            img1: req.files?.img1 ? `/uploads/${req.files.img1[0].filename}` : "",
+            img2: req.files?.img2 ? `/uploads/${req.files.img2[0].filename}` : "",
+            img3: req.files?.img3 ? `/uploads/${req.files.img3[0].filename}` : "",
+            img4: req.files?.img4 ? `/uploads/${req.files.img4[0].filename}` : "",
+            img5: req.files?.img5 ? `/uploads/${req.files.img5[0].filename}` : "",
+            img6: req.files?.img6 ? `/uploads/${req.files.img6[0].filename}` : "",
+            img7: req.files?.img7 ? `/uploads/${req.files.img7[0].filename}` : "",
+            img8: req.files?.img8 ? `/uploads/${req.files.img8[0].filename}` : "",
+            potColor: Array.isArray(potColor) ? potColor.join(",") : (potColor || ""),
+            plantSize: Array.isArray(plantSize) ? plantSize.join(",") : (plantSize || ""),
             desAndCare: desAndCare || ""
         });
 
-        res.status(201).json({ status: "success", message: "Product and details created", data: newProduct });
+        // Return both product and details
+        res.status(201).json({
+            status: "success",
+            message: "Product created successfully",
+            product: newProduct,
+            details
+        });
+
     } catch (error) {
         console.error("ProductCreate error:", error);
         res.status(500).json({ status: "fail", message: "Product creation failed", error });
     }
 };
+
 
 
 exports.ProductDelete = async (req, res) => {

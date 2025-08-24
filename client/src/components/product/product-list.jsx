@@ -21,13 +21,11 @@ const ProductList = () => {
         priceMin: ""
     });
 
-    // ✅ Load Brands & Categories once
     useEffect(() => {
         if (!BrandList.length) BrandListRequest();
         if (!CategoryList.length) CategoryListRequest();
     }, []);
 
-    // ✅ Apply filters whenever Filter changes
     useEffect(() => {
         const hasFilters = Object.values(Filter).some(val => val !== "");
         if (hasFilters) ListByFilterRequest(Filter);
@@ -94,33 +92,42 @@ const ProductList = () => {
                 {/* Product Grid */}
                 <div className="col-md-9 p-2">
                     <div className="container">
-                        <div className="row">
+                        <div className="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3">
                             {ListProduct === null ? (
                                 <ProductsSkeleton />
                             ) : (
                                 ListProduct.map((item, i) => {
                                     const price = item.discount
                                         ? <p className="bodyMedium text-dark my-1">
-                                            Price: <strike>৳{item.price}</strike> ৳{item.discountPrice}
+                                            <strike>৳{item.price}</strike> ৳{item.discountPrice}
                                         </p>
-                                        : <p className="bodyMedium text-dark my-1">
-                                            Price: ৳{item.price}
-                                        </p>;
+                                        : <p className="bodyMedium text-dark my-1">৳{item.price}</p>;
 
                                     return (
-                                        <div key={i} className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
-                                            <Link to={`/details/${item._id}`} className="card shadow-sm h-100 rounded-3 bg-white">
-                                                <img className="w-100 rounded-top-2" src={item.img} alt="product" />
-                                                <div className="card-body">
-                                                    <p className="bodySmal text-secondary my-1">{item.title}</p>
-                                                    {price}
-                                                    <StarRatings
-                                                        rating={parseFloat(item.star)}
-                                                        starRatedColor="red"
-                                                        starDimension="15px"
-                                                        starSpacing="2px"
-                                                    />
-                                                </div>
+                                        <div key={i} className="col text-start">
+                                            <Link
+                                                to={`/details/${item._id}`}
+                                                className="card h-100 rounded-3 bg-white text-decoration-none p-3 d-flex flex-column"
+                                                style={{
+                                                    minHeight: "240px", // slightly bigger
+                                                    boxShadow: "4px 4px 15px rgba(0,0,0,0.2)", // bottom-right only
+                                                    border: "none"
+                                                }}
+                                            >
+                                                <img
+                                                    className="img-fluid mb-2"
+                                                    src={item.img}
+                                                    alt={item.title}
+                                                    style={{ maxHeight: "130px", objectFit: "contain" }}
+                                                />
+                                                <p className="bodySmal mb-1 text-dark">{item.title}</p>
+                                                {price}
+                                                <StarRatings
+                                                    rating={parseFloat(item.star)}
+                                                    starRatedColor="red"
+                                                    starDimension="15px"
+                                                    starSpacing="2px"
+                                                />
                                             </Link>
                                         </div>
                                     );

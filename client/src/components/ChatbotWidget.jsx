@@ -52,7 +52,7 @@ export default function ChatbotWidget() {
                         borderRadius: "20px",
                         boxShadow: "0 16px 40px rgba(0,0,0,0.2)",
                         backgroundColor: "#ffffff",
-                        zIndex: 1000,
+                        zIndex: 9999,
                         overflow: "hidden",
                         display: "flex",
                         flexDirection: "column",

@@ -7,6 +7,7 @@ const InvoiceController = require('../controllers/InvoiceController')
 const FeaturesController = require('../controllers/FeaturesController')
 const AuthVerification = require('../middlewares/AuthVerification')
 const AdminController = require('../controllers/AdminController');
+const upload = require('../middlewares/upload.js');
 
 
 const router = express.Router();
@@ -68,7 +69,22 @@ router.post('/CreateReview',AuthVerification,  ProductController.CreateReview);
 
 //Admin
 router.get('/ProductList', ProductController.ProductList);
-router.post('/ProductCreate', ProductController.ProductCreate);
+router.post(
+    "/ProductCreate",
+    upload.fields([
+        { name: "img", maxCount: 1 },   // main image
+        { name: "img1", maxCount: 1 },
+        { name: "img2", maxCount: 1 },
+        { name: "img3", maxCount: 1 },
+        { name: "img4", maxCount: 1 },
+        { name: "img5", maxCount: 1 },
+        { name: "img6", maxCount: 1 },
+        { name: "img7", maxCount: 1 },
+        { name: "img8", maxCount: 1 },
+    ]),
+    ProductController.ProductCreate
+);
+
 router.delete('/ProductDelete/:id', ProductController.ProductDelete);
 router.get('/AdminInvoiceList', InvoiceController.AdminInvoiceList);
 router.get('/AdminDashboardSummary', AdminController.AdminDashboardSummary);

@@ -44,6 +44,8 @@ app.use(limiter)
 
 app.set('etag', false);
 app.use("/api",router)
+app.use("/uploads", express.static("uploads"));
+
 
 
 

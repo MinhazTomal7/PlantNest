@@ -34,6 +34,9 @@ const Footer = () => {
                             <p className="my-2">
                                 <Link className="nav-link" to="/complain">Complain</Link>
                             </p>
+                            <p className="my-2">
+                                <Link className="nav-link" to="/admin">Admin Login</Link>
+                            </p>
                         </div>
                         <div className="col-md-4">
                             <h1 className="bodyMedium">About</h1>

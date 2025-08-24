@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
 // Public pages (with Layout)
 import Layout from "./components/layout/layout.jsx";
@@ -30,10 +30,25 @@ import AdminProducts from "./admin/pages/AdminProducts.jsx";
 import AdminLayout from "./admin/layout/AdminLayout.jsx";
 import AddProduct from "./admin/pages/AddProduct.jsx";
 import Chatbot from "./components/Chatbot.jsx";
+import AdminProtected from "./admin/components/AdminProtected.jsx";
+
+// ScrollToTop Component
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+};
 
 const App = () => {
     return (
         <BrowserRouter>
+            {/* ScrollToTop ensures every page starts at the top */}
+            <ScrollToTop />
+
             <Routes>
                 {/* Public layout routes */}
                 <Route path="/" element={<Layout />}>
@@ -60,11 +75,13 @@ const App = () => {
                 </Route>
 
                 {/* Admin route without layout */}
-                <Route path="/admin" element={<AdminLayout />}>
-                    <Route index element={<AdminDashboard />} />
-                    <Route path="products" element={<AdminProducts />} />
-                    <Route path="orders" element={<AdminOrders />} />
-                    <Route path="add-product" element={<AddProduct />} />
+                <Route path="/admin" element={<AdminProtected />}>
+                    <Route element={<AdminLayout />}>
+                        <Route index element={<AdminDashboard />} />
+                        <Route path="products" element={<AdminProducts />} />
+                        <Route path="orders" element={<AdminOrders />} />
+                        <Route path="add-product" element={<AddProduct />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

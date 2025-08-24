@@ -20,57 +20,23 @@ const Details = () => {
     const { CartFormChange, CartForm, CartSaveRequest, CartListRequest } = CartStore();
     const { WishSaveRequest, WishListRequest } = WishStore();
 
-    const sizePriceMap = {
-        Small: 0,
-        Medium: 50,
-        Large: 100,
-    };
+    const sizePriceMap = { Small: 0, Medium: 50, Large: 100 };
+    const potColorPriceMap = { Default: 0, White: 30, Metallic: 60 };
 
-    const potColorPriceMap = {
-        Default: 0,
-        White: 30,
-        Metallic: 60,
-    };
-
-    // Calculate depreciation
     const calculateDepreciatedPrice = (basePrice, createdAt, ratePerMonth = 0.02) => {
-        const createdDate = new Date(createdAt);
-        const now = new Date();
-
-        // Calculate difference in days
-        const diffTime = now - createdDate; // milliseconds
-        const diffDays = diffTime / (1000 * 60 * 60 * 24);
-
-        // Convert monthly rate to daily rate (compound)
+        const diffDays = (new Date() - new Date(createdAt)) / (1000 * 60 * 60 * 24);
         const dailyRate = 1 - Math.pow(1 - ratePerMonth, 1 / 30);
-
-        // Depreciated price using daily compound
         const depreciatedPrice = basePrice * Math.pow(1 - dailyRate, diffDays);
-
-        return Math.max(Math.round(depreciatedPrice), 1);
+        return Math.max(depreciatedPrice, 1); // no rounding yet
     };
-
-
 
     useEffect(() => {
-        if (!Details || Details.length === 0) {
-            setAdjustedPrice(null);
-            setDepreciatedPrice(null);
-            setProductAgeDays(0);
-            return;
-        }
+        if (!Details || Details.length === 0) return;
+
         const product = Details[0];
+        const basePrice = product.discount ? Number(product.discountPrice) : Number(product.price);
 
-        const basePrice = product.discount
-            ? Number(product.discountPrice)
-            : Number(product.price);
-
-        // Calculate age in days for display
-        const createdDate = new Date(product.createdAt);
-        const now = new Date();
-        const diffTime = Math.abs(now - createdDate);
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        setProductAgeDays(diffDays);
+        setProductAgeDays(Math.floor((new Date() - new Date(product.createdAt)) / (1000 * 60 * 60 * 24)));
 
         const sizeExtra = sizePriceMap[CartForm.plantSize] || 0;
         const colorExtra = potColorPriceMap[CartForm.potColor] || 0;
@@ -82,22 +48,15 @@ const Details = () => {
         setDepreciatedPrice(depPrice + sizeExtra + colorExtra);
     }, [CartForm.plantSize, CartForm.potColor, Details]);
 
-
-    if (!Details || Details.length === 0) {
-        return <DetailsSkeleton />;
-    }
+    if (!Details || Details.length === 0) return <DetailsSkeleton />;
 
     const product = Details[0];
-
-    const incrementQuantity = () => SetQuantity((prev) => prev + 1);
-    const decrementQuantity = () => quantity > 1 && SetQuantity((prev) => prev - 1);
+    const incrementQuantity = () => SetQuantity(prev => prev + 1);
+    const decrementQuantity = () => quantity > 1 && SetQuantity(prev => prev - 1);
 
     const AddWish = async (productID) => {
         let res = await WishSaveRequest(productID);
-        if (res) {
-            toast.success("Wish Item Added");
-            await WishListRequest();
-        }
+        if (res) { toast.success("Wish Item Added"); await WishListRequest(); }
     };
 
     const AddCart = async (productID) => {
@@ -105,16 +64,9 @@ const Details = () => {
         const extraPrice = (sizePriceMap[CartForm.plantSize] || 0) + (potColorPriceMap[CartForm.potColor] || 0);
         const finalPrice = basePrice + extraPrice;
 
-        let PostBodyWithPrice = {
-            ...CartForm,
-            price: finalPrice,
-        };
-
+        let PostBodyWithPrice = { ...CartForm, price: finalPrice };
         let res = await CartSaveRequest(PostBodyWithPrice, productID, quantity);
-        if (res) {
-            toast.success("Cart Item Added");
-            await CartListRequest();
-        }
+        if (res) { toast.success("Cart Item Added"); await CartListRequest(); }
     };
 
     return (
@@ -130,57 +82,33 @@ const Details = () => {
                         <p className="text-muted bodySmal my-1">Brand: {product.brand?.brandName ?? "N/A"}</p>
                         <p className="bodySmal mb-2 mt-1">{product.shortDes ?? "No description"}</p>
 
-                        <span className="bodyXLarge d-block">
-                            Original Price: ৳{adjustedPrice}
-                        </span>
-                        <span className="bodyXLarge d-block text-success">
-                            Depreciated Price: ৳{depreciatedPrice}
-                        </span>
-                        <span className="bodySmal d-block text-muted">
-                            Age: {productAgeDays} days (2%/30 days depreciation)
-                        </span>
+                        <span className="bodyXLarge d-block">Original Price: ৳{Math.round(adjustedPrice)}</span>
+                        <span className="bodyXLarge d-block text-success">Depreciated Price: ৳{Math.round(depreciatedPrice)}</span>
+                        <span className="bodySmal d-block text-muted">Age: {productAgeDays} days (2%/30 days depreciation)</span>
 
                         <div className="row">
                             <div className="col-4 p-2">
                                 <label className="bodySmal">Plant Size</label>
-                                <select
-                                    value={CartForm.plantSize}
-                                    onChange={(e) => CartFormChange("plantSize", e.target.value)}
-                                    className="form-control my-2 form-select"
-                                >
+                                <select value={CartForm.plantSize} onChange={(e) => CartFormChange("plantSize", e.target.value)} className="form-control my-2 form-select">
                                     <option value="">Plant Size</option>
                                     {product.details?.plantSize?.split(",").map((item, i) => {
                                         const trimmed = item.trim();
                                         const extra = sizePriceMap[trimmed] || 0;
-                                        return (
-                                            <option key={i} value={trimmed}>
-                                                {extra > 0 ? `${trimmed} (+৳${extra})` : trimmed}
-                                            </option>
-                                        );
+                                        return (<option key={i} value={trimmed}>{extra > 0 ? `${trimmed} (+৳${extra})` : trimmed}</option>);
                                     })}
                                 </select>
                             </div>
-
                             <div className="col-4 p-2">
                                 <label className="bodySmal">Pot Color</label>
-                                <select
-                                    value={CartForm.potColor}
-                                    onChange={(e) => CartFormChange("potColor", e.target.value)}
-                                    className="form-control my-2 form-select"
-                                >
+                                <select value={CartForm.potColor} onChange={(e) => CartFormChange("potColor", e.target.value)} className="form-control my-2 form-select">
                                     <option value="">Pot Color</option>
                                     {product.details?.potColor?.split(",").map((item, i) => {
                                         const trimmed = item.trim();
                                         const extra = potColorPriceMap[trimmed] || 0;
-                                        return (
-                                            <option key={i} value={trimmed}>
-                                                {extra > 0 ? `${trimmed} (+৳${extra})` : trimmed}
-                                            </option>
-                                        );
+                                        return (<option key={i} value={trimmed}>{extra > 0 ? `${trimmed} (+৳${extra})` : trimmed}</option>);
                                     })}
                                 </select>
                             </div>
-
                             <div className="col-4 p-2">
                                 <label className="bodySmal">Quantity</label>
                                 <div className="input-group my-2">
@@ -189,21 +117,11 @@ const Details = () => {
                                     <button onClick={incrementQuantity} className="btn btn-outline-secondary">+</button>
                                 </div>
                             </div>
-
                             <div className="col-4 p-2">
-                                <CartSubmitButton
-                                    onClick={async () => await AddCart(product._id)}
-                                    className="btn w-100 btn-success"
-                                    text="Add to Cart"
-                                />
+                                <CartSubmitButton onClick={async () => await AddCart(product._id)} className="btn w-100 btn-success" text="Add to Cart" />
                             </div>
-
                             <div className="col-4 p-2">
-                                <WishSubmitButton
-                                    onClick={async () => await AddWish(product._id)}
-                                    className="btn w-100 btn-success"
-                                    text="Add to Wish"
-                                />
+                                <WishSubmitButton onClick={async () => await AddWish(product._id)} className="btn w-100 btn-success" text="Add to Wish" />
                             </div>
                         </div>
                     </div>
@@ -212,14 +130,10 @@ const Details = () => {
                 <div className="row mt-3">
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                         <li className="nav-item" role="presentation">
-                            <button className="nav-link active" id="Speci-tab" data-bs-toggle="tab" data-bs-target="#Speci-tab-pane" type="button" role="tab" aria-controls="Speci-tab-pane" aria-selected="true">
-                                Specifications
-                            </button>
+                            <button className="nav-link active" id="Speci-tab" data-bs-toggle="tab" data-bs-target="#Speci-tab-pane" type="button" role="tab" aria-controls="Speci-tab-pane" aria-selected="true">Specifications</button>
                         </li>
                         <li className="nav-item" role="presentation">
-                            <button className="nav-link" id="Review-tab" data-bs-toggle="tab" data-bs-target="#Review-tab-pane" type="button" role="tab" aria-controls="Review-tab-pane" aria-selected="false">
-                                Review
-                            </button>
+                            <button className="nav-link" id="Review-tab" data-bs-toggle="tab" data-bs-target="#Review-tab-pane" type="button" role="tab" aria-controls="Review-tab-pane" aria-selected="false">Review</button>
                         </li>
                     </ul>
                     <div className="tab-content" id="myTabContent">
